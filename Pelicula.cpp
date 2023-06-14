@@ -11,6 +11,11 @@ std::string Pelicula::toString() {
     return Video::toString();
 }
 
+std::ostream &operator<<(std::ostream &os, Pelicula pelicula) {
+    os << pelicula.toString()<<std::endl;
+    return os;
+}
+
 //GETTERS & SETTERS
 
 

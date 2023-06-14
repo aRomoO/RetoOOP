@@ -15,10 +15,7 @@ protected:
     int duracion;
     std::string genero;
     int calificacion;
-public:
-    int getCalificacion() const;
 
-    void setCalificacion(int calificacion);
 
 public:
     //CONSTRUCTOR
@@ -35,6 +32,8 @@ public:
     void setDuracion(int duracion);
     const std::string &getGenero() const;
     void setGenero(const std::string &genero);
+    int getCalificacion() const;
+    void setCalificacion(int calificacion);
 
     //VIRTUAL METHODS
     virtual std::string toString() = 0;

@@ -4,6 +4,8 @@
 
 #ifndef RETOOOP_PELICULA_H
 #define RETOOOP_PELICULA_H
+
+#include <ostream>
 #include "Video.h"
 
 class Pelicula : public Video{
@@ -13,6 +15,8 @@ public:
 
     //METHODS
     std::string toString() override;
+
+    friend std::ostream &operator<<(std::ostream &os, Pelicula pelicula);
 };
 
 
