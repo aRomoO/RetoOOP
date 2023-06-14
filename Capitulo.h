@@ -10,9 +10,11 @@
 
 class Capitulo : Video{
 private:
+    std::string nombreSerie;
     int numero;
 public:
-    Capitulo(int id, char tipo, int numero,const std::string &nombre, int duracion, const std::string &genero, int calificacion);
+    Capitulo(int id, char tipo, const std::string &nombre, int duracion, const std::string &genero, int calificacion,
+             std::string serie, int numero);
 
     std::string toString() override;
 

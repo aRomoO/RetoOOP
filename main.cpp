@@ -16,7 +16,7 @@ using namespace std;
 int main() {
 
     Pelicula p1(01,'p',"Harry Potter",120,"fantasia",90);
-    Capitulo c1(01,'c',12,"Episodio  Prueba", 22, "aventura", 100);
+    Capitulo c1(01,'c',"Capitulo1",23,"aventura",100,"HIMYM",01);
     cout << p1;
     cout << c1;
 
