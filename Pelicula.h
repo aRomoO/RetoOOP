@@ -13,8 +13,10 @@ public:
     //CONSTRUCTOR
     Pelicula(int id, char tipo, const std::string &nombre, int duracion, const std::string &genero, int calificacion);
 
+
     //METHODS
     std::string toString() override;
+
 
     friend std::ostream &operator<<(std::ostream &os, Pelicula pelicula);
 };

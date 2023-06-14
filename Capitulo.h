@@ -11,14 +11,14 @@
 class Capitulo : Video{
 private:
     std::string nombreSerie;
-    int numero;
+    int numeroCapitulo;
 public:
     Capitulo(int id, char tipo, const std::string &nombre, int duracion, const std::string &genero, int calificacion,
              std::string serie, int numero);
 
     std::string toString() override;
 
-    friend std::ostream &operator<<(std::ostream &os, const Capitulo capitulo);
+    friend std::ostream &operator<<(std::ostream &os,  Capitulo capitulo);
 };
 
 
