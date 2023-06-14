@@ -3,4 +3,4 @@ project(RetoOOP)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(RetoOOP main.cpp Video.cpp Video.h)
+add_executable(RetoOOP main.cpp Video.cpp Video.h Pelicula.cpp Pelicula.h Serie.cpp Serie.h Temporada.cpp Temporada.h Capitulo.cpp Capitulo.h)
