@@ -4,18 +4,19 @@
 
 #ifndef RETOOOP_SERIE_H
 #define RETOOOP_SERIE_H
-#include "Temporada.h"
+#include "Capitulo.h"
 #include "vector"
 #include "string"
 
 class Serie{
 public:
     explicit Serie(const std::string &nombre);
-             Serie(const std::string &nombre, const std::vector<Temporada *> &temporadas);
+
+    Serie(const std::string &nombre, const std::vector<Capitulo *> &capitulos);
 
 private:
     std::string nombre;
-    std::vector<Temporada*> temporadas;
+    std::vector<Capitulo*> Capitulos;
 
 
 };

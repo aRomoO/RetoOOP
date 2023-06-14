@@ -1,3 +1,12 @@
+/*
+ *          ALFREDO ROMO OSORNO
+ *          a01643235@tec.mx
+ *          SITUACIÓN PROBLEMA OOP 2DO SEMESTRE:
+ *          SIMULACION SISTEMA DE STREAMING
+ *
+ * */
+
+
 #include <iostream>
 #include "Video.h"
 #include "Pelicula.h"
@@ -7,12 +16,17 @@ using namespace std;
 int main() {
 
     Pelicula p1(01,'p',"Harry Potter",120,"fantasia",90);
-    Capitulo c1(01,'s',12,"Episodio  Prueba", 22, "aventura", 100);
-
-
+    Capitulo c1(01,'c',12,"Episodio  Prueba", 22, "aventura", 100);
     cout << p1;
-    //cout << p1.toString()<<endl;
-    cout << c1.toString();
+    cout << c1;
+
+
+    //TRATAR DE CARGAR ARCHIVO//
+
+    //SI NO SE ENCUENTRA EL ARCHIVO, PEDIR LA RUTA//
+
+    //SI NO SE PUEDE, MARCAR ERROR//
+
 
 
     return 0;

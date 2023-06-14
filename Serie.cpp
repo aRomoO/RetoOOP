@@ -6,5 +6,5 @@
 
 Serie::Serie(const std::string &nombre) : nombre(nombre) {}
 
-Serie::Serie(const std::string &nombre, const std::vector<Temporada *> &temporadas) : nombre(nombre),
-                                                                                      temporadas(temporadas) {}
+Serie::Serie(const std::string &nombre, const std::vector<Capitulo *> &capitulos) : nombre(nombre),
+                                                                                    Capitulos(capitulos) {}

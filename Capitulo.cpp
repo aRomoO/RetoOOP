@@ -12,4 +12,9 @@ std::string Capitulo::toString() {
     return Video::toString() + "," + std::to_string(numero);
 }
 
+std::ostream &operator<<(std::ostream &os, Capitulo capitulo) {
+    os << capitulo.toString();
+    return os;
+}
+
 
