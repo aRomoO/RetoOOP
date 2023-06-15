@@ -4,29 +4,23 @@
 
 #include "Video.h"
 
+#include <utility>
+
 
 //CONSTRUCTORS
-Video::Video(int id, char tipo, std::string nombre, int duracion, std::string genero, int calificacion) :
-id(id),
-tipo(tipo),
+Video::Video(std::string id, std::string nombre, int duracion, std::string genero) :
+id(std::move(id)),
 nombre(std::move(nombre)),
 duracion(duracion),
-genero(std::move(genero)),
-calificacion(calificacion){}
+genero(std::move(genero)){}
 
 
 //GETTERS & SETTERS
-int Video::getId() const {
+std::string Video::getId() const {
     return id;
 }
-void Video::setId(int id) {
-    Video::id = id;
-}
-char Video::getTipo() const {
-    return tipo;
-}
-void Video::setTipo(char tipo) {
-    Video::tipo = tipo;
+void Video::setId(std::string id) {
+    Video::id = std::move(id);
 }
 const std::string &Video::getNombre() const {
     return nombre;
@@ -46,18 +40,41 @@ const std::string &Video::getGenero() const {
 void Video::setGenero(const std::string &genero) {
     Video::genero = genero;
 }
-int Video::getCalificacion() const {
+
+
+//METHODS
+const std::vector<int> &Video::getCalificacion() const {
     return calificacion;
 }
-void Video::setCalificacion(int calificacion) {
+void Video::setCalificacion(const std::vector<int> &calificacion) {
     Video::calificacion = calificacion;
 }
 
-//METHODS
+std::string Video::PromedioCalificiones() {
+    int n = calificacion.size();
+    int sum = 0;
+    //avoid 0/0
+    if (n==0) return "SC";
+    else
+    {
+
+        for (int i : calificacion)
+        {
+            sum += i;
+        }
+    }
+    return std::to_string(float(sum) / n);
+
+}
 
 //VIRTUAL METHODS
 std::string Video::toString() {
-     return std::to_string(id)+","+nombre+","+ std::to_string(duracion)+","+genero+","+ std::to_string(calificacion);
+    return  "\n---------------\n[ID]:"        +id+"\n"+
+            "[Nombre]: "       + nombre+"\n"+
+            "[Duracion]: "     +std::to_string(duracion)+"\n"+
+            "[Genero]: "       + genero+"\n"+
+            "[Calificacion]: " + PromedioCalificiones()+ "\n";
+
 }
 
 
