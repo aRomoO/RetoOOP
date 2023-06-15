@@ -9,8 +9,7 @@
 
 class Video {
 protected:
-    int id;
-    char tipo;
+    std::string id;
     std::string nombre;
     int duracion;
     std::string genero;
@@ -19,13 +18,12 @@ protected:
 
 public:
     //CONSTRUCTOR
-    Video(int id, char tipo, std::string nombre, int duracion, std::string genero, int calificacion);
+    Video(std::string id, std::string nombre, int duracion, std::string genero, int calificacion);
 
     //GETTERS & SETTERS
-    int getId() const;
-    void setId(int id);
-    char getTipo() const;
-    void setTipo(char tipo);
+    std::string getId() const;
+    void setId(std::string id);
+
     const std::string &getNombre() const;
     void setNombre(const std::string &nombre);
     int getDuracion() const;
