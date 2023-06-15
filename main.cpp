@@ -96,7 +96,7 @@ void LoadFileIntoVectors(ifstream * file) {
 
                 numeroEpisodio = stoi(numero_str);
 
-                vectorCapitulos.push_back(new Capitulo(id, titulo, duracion, genero, 0, nombreSerie, numeroEpisodio));
+                vectorCapitulos.push_back(new Capitulo(id, titulo, duracion, genero, nombreSerie, numeroEpisodio));
                 //cout << *vectorCapitulos.at(0);
 
 
@@ -106,7 +106,7 @@ void LoadFileIntoVectors(ifstream * file) {
                 if (tipo == "p")
                 {
 
-                    vectorPeliculas.push_back(new Pelicula(id, titulo, duracion, genero, 0));
+                    vectorPeliculas.push_back(new Pelicula(id, titulo, duracion, genero));
                     //cout << *vectorPeliculas.at(0);
                 }
                 else
@@ -124,8 +124,8 @@ void LoadFileIntoVectors(ifstream * file) {
 
 }
 
-bool OpenTextFile(const string& CurrentPath) {
-    ifstream file(CurrentPath+"\\"+"videos.txt"); // Open the file
+bool OpenTextFile(const string& CurrentPath, const string& filename) {
+    ifstream file(CurrentPath+"\\"+filename); // Open the file
     string firstLine;
 
 
@@ -135,6 +135,7 @@ bool OpenTextFile(const string& CurrentPath) {
         }
 
             cout << "File Opened Successfully...\n";
+            cout << "loading files..."<<endl;
             LoadFileIntoVectors(&file);
             file.close(); // Close the file
             return true;
@@ -146,35 +147,39 @@ int main() {
 
 
     //Try to open the file with the current path
-    cout << "Looking for catalog file in current dir: ";
+    cout << "Looking for { videos.txt } file in current dir: ";
 
     //
-    if(OpenTextFile(GetCurrentPath())){
+    if(OpenTextFile(GetCurrentPath(), "videoas.txt")){
         for(auto i : vectorCapitulos)
         {
-            cout << *i;
+            cout << *i<<endl;
         }
 
         for(auto i : vectorPeliculas)
         {
-            cout << *i;
+            cout << *i<<endl;
         }
         menu();
     }
 
-
-    string a;
-    cin >> a;
-
-    for(auto i : vectorCapitulos)
+    //Pedimos la ruta
+    else
     {
-        cout << *i;
+        string dir;
+        string filename;
+        cout << "ENTER FOLDER DIRECTORY: (without file and extention)\n : ";
+        cin >> dir; cout << endl;
+        cout << "ENTER FILE NAME AND EXTENTION: (ej. videos.txt)\n : ";
+        cin >> filename;
+
+        OpenTextFile(dir,filename);
+
+
     }
 
-    for(auto i : vectorPeliculas)
-    {
-        cout << *i;
-    }
+
+
 
 
 

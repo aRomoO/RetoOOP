@@ -16,10 +16,7 @@ std::string Capitulo::toString() {
 
 
 
-Capitulo::Capitulo(std::string id, const std::string &nombre, int duracion, const std::string &genero,
-                   int calificacion, std::string serie, int numero) : Video(std::move(id), nombre, duracion, genero,
-                                                                                   calificacion), nombreSerie(std::move(serie)),
-                                                                                   numero(numero) {}
+
 
 
 
@@ -27,3 +24,7 @@ std::ostream &operator<<(std::ostream &os, Capitulo capitulo) {
     os << capitulo.toString();
     return os;
 }
+
+Capitulo::Capitulo(const std::string &id, const std::string &nombre, int duracion, const std::string &genero,
+                   std::string nombreSerie, int numero) : Video(id, nombre, duracion, genero),
+                                                                 nombreSerie(std::move(nombreSerie)), numero(numero) {}

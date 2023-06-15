@@ -13,8 +13,8 @@ private:
     std::string nombreSerie;
     int numero;
 public:
-    Capitulo(std::string id, const std::string &nombre, int duracion, const std::string &genero, int calificacion,
-             std::string serie, int numero);
+    Capitulo(const std::string &id, const std::string &nombre, int duracion, const std::string &genero,
+             std::string nombreSerie, int numero);
 
     std::string toString() override;
 

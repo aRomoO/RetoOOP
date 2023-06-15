@@ -11,7 +11,7 @@
 class Pelicula : public Video{
 public:
     //CONSTRUCTOR
-    Pelicula(std::string id, const std::string &nombre, int duracion, const std::string &genero, int calificacion);
+    Pelicula(std::string id, const std::string &nombre, int duracion, const std::string &genero);
 
     //METHODS
     std::string toString() override;

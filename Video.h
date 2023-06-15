@@ -6,6 +6,7 @@
 #define RETOOOP_VIDEO_H
 
 #include "string"
+#include "vector"
 
 class Video {
 protected:
@@ -13,12 +14,13 @@ protected:
     std::string nombre;
     int duracion;
     std::string genero;
-    int calificacion;
+    std::vector <int> calificacion = {};
+
 
 
 public:
     //CONSTRUCTOR
-    Video(std::string id, std::string nombre, int duracion, std::string genero, int calificacion);
+    Video(std::string id, std::string nombre, int duracion, std::string genero);
 
     //GETTERS & SETTERS
     std::string getId() const;
@@ -30,8 +32,11 @@ public:
     void setDuracion(int duracion);
     const std::string &getGenero() const;
     void setGenero(const std::string &genero);
-    int getCalificacion() const;
-    void setCalificacion(int calificacion);
+    const std::vector<int> &getCalificacion() const;
+    void setCalificacion(const std::vector<int> &calificacion);
+
+    //METHODS
+    std::string PromedioCalificaion();
 
     //VIRTUAL METHODS
     virtual std::string toString() = 0;
