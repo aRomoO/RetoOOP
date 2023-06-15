@@ -36,7 +36,7 @@ public:
     void setCalificacion(const std::vector<int> &calificacion);
 
     //METHODS
-    std::string PromedioCalificaion();
+    std::string PromedioCalificiones();
 
     //VIRTUAL METHODS
     virtual std::string toString() = 0;

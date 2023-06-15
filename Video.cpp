@@ -50,17 +50,7 @@ void Video::setCalificacion(const std::vector<int> &calificacion) {
     Video::calificacion = calificacion;
 }
 
-//VIRTUAL METHODS
-std::string Video::toString() {
-    return  "\n---------------\n[ID]:"        +id+"\n"+
-            "[Nombre]: "       + nombre+"\n"+
-            "[Duracion]: "     +std::to_string(duracion)+"\n"+
-            "[Genero]: "       + genero+"\n";
-            //"[Calificacion]: " + std::to_string(calificacion)+ "\n";
-
-}
-
-std::string Video::PromedioCalificaion() {
+std::string Video::PromedioCalificiones() {
     int n = calificacion.size();
     int sum = 0;
     //avoid 0/0
@@ -74,6 +64,16 @@ std::string Video::PromedioCalificaion() {
         }
     }
     return std::to_string(float(sum) / n);
+
+}
+
+//VIRTUAL METHODS
+std::string Video::toString() {
+    return  "\n---------------\n[ID]:"        +id+"\n"+
+            "[Nombre]: "       + nombre+"\n"+
+            "[Duracion]: "     +std::to_string(duracion)+"\n"+
+            "[Genero]: "       + genero+"\n"+
+            "[Calificacion]: " + PromedioCalificiones()+ "\n";
 
 }
 

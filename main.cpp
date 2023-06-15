@@ -30,6 +30,38 @@ using namespace std;
 vector<Pelicula*> vectorPeliculas;
 vector<Capitulo*> vectorCapitulos;
 
+void MostrarCatalogoConCalif()
+{
+    for(auto i : vectorPeliculas)
+    {
+        cout << *i;
+    }
+
+    for(auto i : vectorCapitulos)
+    {
+        cout << *i;
+    }
+
+
+}
+
+void CalificarVideo(string id)
+{
+
+}
+
+//Busca y regresa el index de en donde se encuentra la película con ID _
+int BuscarPorID(vector <Video*> * v,const string& id){
+    for (int i = 0; i < v->size(); i++)
+    {
+        if (v->at(i)->getId() == id )
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
 
 void clearConsole() {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -45,6 +77,18 @@ void clearConsole() {
 void menu()
 {
     clearConsole();
+    MostrarCatalogoConCalif();
+    cout << BuscarPorID(reinterpret_cast<vector<struct Video *> *>(&vectorCapitulos), "20160150-S02E09");
+
+
+    /*
+    * 1. Mostrar todo el catalogo con calificaciones.
+    * 2. Calificar un video
+    * 3. Mostrar peliculas o capitulos con una calificacion minima determinada
+    * 4. Mostrar peliculas o capitulos de un cierto genero.
+    * 9. Salir
+     *
+     * */
     cout << "menu";
 }
 
@@ -165,7 +209,10 @@ int main() {
 
     //
     if(OpenTextFile(GetCurrentPath(), "videos.txt")){
-
+        for(auto i : vectorPeliculas)
+        {
+            cout << *i;
+        }
         menu();
     }
 
@@ -179,6 +226,7 @@ int main() {
 
         while(1)
         {
+            clearConsole();
             cout << "ENTER FOLDER DIRECTORY: (without file and extention)\n : ";
             cin >> dir; cout << endl;
             cout << "ENTER FILE NAME AND EXTENTION: (ej. videos.txt)\n : ";
@@ -190,8 +238,16 @@ int main() {
                     cin.clear();  // Clear the error flag
                     cout << "CAN'T OPEN DOCUMENT, TRY AGAIN?\n0 : exit\nanything else : continue" <<endl;
                     cin >> salir;
-                    if (salir==0) abort();
-                    else break;
+                    if (salir==0)
+                    {
+                        abort();
+                    }
+
+                    else
+                    {
+                        clearConsole();
+                        break;
+                    }
 
                 }
 
@@ -199,6 +255,8 @@ int main() {
             else
             {
                 break;
+
+
             }
 
         }
