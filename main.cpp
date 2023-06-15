@@ -8,6 +8,7 @@
 
 //C++ Libraries
 #include <iostream>
+#include "conio.h"
 #include "string"
 #include "fstream"
 #include "exception"
@@ -29,8 +30,21 @@ using namespace std;
 vector<Pelicula*> vectorPeliculas;
 vector<Capitulo*> vectorCapitulos;
 
+
+void clearConsole() {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    COORD topLeft = {0, 0};
+    CONSOLE_SCREEN_BUFFER_INFO screen;
+    DWORD written;
+
+    GetConsoleScreenBufferInfo(hConsole, &screen);
+    FillConsoleOutputCharacter(hConsole, ' ', screen.dwSize.X * screen.dwSize.Y, topLeft, &written);
+    SetConsoleCursorPosition(hConsole, topLeft);
+}
+
 void menu()
 {
+    clearConsole();
     cout << "menu";
 }
 
@@ -150,30 +164,46 @@ int main() {
     cout << "Looking for { videos.txt } file in current dir: ";
 
     //
-    if(OpenTextFile(GetCurrentPath(), "videoas.txt")){
-        for(auto i : vectorCapitulos)
-        {
-            cout << *i<<endl;
-        }
+    if(OpenTextFile(GetCurrentPath(), "videos.txt")){
 
-        for(auto i : vectorPeliculas)
-        {
-            cout << *i<<endl;
-        }
         menu();
     }
 
     //Pedimos la ruta
     else
     {
+
         string dir;
         string filename;
-        cout << "ENTER FOLDER DIRECTORY: (without file and extention)\n : ";
-        cin >> dir; cout << endl;
-        cout << "ENTER FILE NAME AND EXTENTION: (ej. videos.txt)\n : ";
-        cin >> filename;
+        int salir = 0;
 
-        OpenTextFile(dir,filename);
+        while(1)
+        {
+            cout << "ENTER FOLDER DIRECTORY: (without file and extention)\n : ";
+            cin >> dir; cout << endl;
+            cout << "ENTER FILE NAME AND EXTENTION: (ej. videos.txt)\n : ";
+            cin >> filename;
+            if(!OpenTextFile(dir,filename))
+            {
+                while (1)
+                {
+                    cin.clear();  // Clear the error flag
+                    cout << "CAN'T OPEN DOCUMENT, TRY AGAIN?\n0 : exit\nanything else : continue" <<endl;
+                    cin >> salir;
+                    if (salir==0) abort();
+                    else break;
+
+                }
+
+            }
+            else
+            {
+                break;
+            }
+
+        }
+
+        menu();
 
 
     }
