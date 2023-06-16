@@ -420,6 +420,27 @@ void MostrarCatalogoConCalif()
 
 }
 
+string formatPath(string path)
+{
+    ///FORMAT WITH DOUBLE backslash
+    string dir_path;
+    for (char c : path) {
+        if (c == '\\' || c == ' ') {
+            dir_path += "\\\\";
+        } else {
+            dir_path += c;
+        }
+    }
+
+    for (size_t i = 0; i < path.length(); i++) {
+        if (path[i] == ' ') {
+            dir_path.insert(i, " ");
+        }
+    }
+
+    cout <<"Formated PATH: " << dir_path << endl;
+    return dir_path;
+}
 
 string GetCurrentPath()
 {
@@ -429,15 +450,9 @@ string GetCurrentPath()
         string path {file.substr(0, file.rfind('/\\'))};
         ///FORMAT WITH DOUBLE backslash
 
-        string dir_path;
-        for (char c : path) {
-            if (c == '\\') {
-                dir_path += "\\\\";
-            } else {
-                dir_path += c;
-            }
-        }
-        std::cout <<"CURRENT PATH: " << dir_path << std::endl;
+        string dir_path = formatPath(path);
+
+        //cout <<"CURRENT PATH: " << dir_path << std::endl;
         return dir_path;
 
 
@@ -565,7 +580,7 @@ int main() {
             cin >> dir; cout << endl;
             cout << "ENTER FILE NAME AND EXTENTION: (ej. videos.txt)\n : ";
             cin >> filename;
-            if(!OpenTextFile(dir,filename))
+            if(!OpenTextFile(formatPath(dir),filename))
             {
                 while (true)
                 {
