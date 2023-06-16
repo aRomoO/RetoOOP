@@ -573,7 +573,7 @@ A01643235@tec.mx
 
 
 
-    printf_s("%s\n",&welcome);
+    cout << welcome << endl;
     //cout << welcome << endl;
     system("pause");
     //Try to open the file with the current path
