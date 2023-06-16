@@ -437,7 +437,7 @@ string GetCurrentPath()
                 dir_path += c;
             }
         }
-        std::cout << dir_path << std::endl;
+        std::cout <<"CURRENT PATH: " << dir_path << std::endl;
         return dir_path;
 
 
@@ -515,7 +515,7 @@ bool OpenTextFile(const string& CurrentPath, const string& filename) {
 
 
         if (!file.is_open()) {
-            cout << "Unable to open catalogue file. File may be in use or path may not be correct "<<endl;
+            cout << " ** Unable to open catalogue file. File may be in use or path may not be correct **"<<endl;
             return false;
         }
 
@@ -541,11 +541,11 @@ int main() {
 )delimiter";
 
     cout << welcome << endl;
-
+    system("pause");
     //Try to open the file with the current path
-    if(OpenTextFile(GetCurrentPath(), "videos.txt")){
+    if(OpenTextFile(GetCurrentPath(), "video0s.txt")){
         cout << "Data loaded successsfully\n" ;
-        system("pause");
+
 
         MainMenu();
     }
