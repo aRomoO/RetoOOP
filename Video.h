@@ -32,11 +32,11 @@ public:
     void setDuracion(int duracion);
     const std::string &getGenero() const;
     void setGenero(const std::string &genero);
-    const std::vector<int> &getCalificacion() const;
-    void setCalificacion(const std::vector<int> &calificacion);
+
 
     //METHODS
     std::string PromedioCalificiones();
+    bool addCalificacion(int cal);
 
     //VIRTUAL METHODS
     virtual std::string toString() = 0;

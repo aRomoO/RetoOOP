@@ -43,12 +43,7 @@ void Video::setGenero(const std::string &genero) {
 
 
 //METHODS
-const std::vector<int> &Video::getCalificacion() const {
-    return calificacion;
-}
-void Video::setCalificacion(const std::vector<int> &calificacion) {
-    Video::calificacion = calificacion;
-}
+
 
 std::string Video::PromedioCalificiones() {
     int n = calificacion.size();
@@ -74,6 +69,19 @@ std::string Video::toString() {
             "[Duracion]: "     +std::to_string(duracion)+"\n"+
             "[Genero]: "       + genero+"\n"+
             "[Calificacion]: " + PromedioCalificiones()+ "\n";
+
+}
+
+bool Video::addCalificacion(int cal) {
+    if (!(cal >= 1 && cal <= 5))
+    {
+        return false;
+    }
+    else
+    {
+        calificacion.push_back(cal);
+        return true;
+    }
 
 }
 

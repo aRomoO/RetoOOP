@@ -18,6 +18,7 @@
 #include <sstream>
 #include <typeinfo>
 #include <stdexcept>
+#include <limits>
 
 //Header files
 #include "Video.h"
@@ -27,8 +28,71 @@
 using namespace std;
 
 //VARIABLES GLOBALES
+string lineStr = "------------------------------------------------------------------------------------------------";
 vector<Pelicula*> vectorPeliculas;
 vector<Capitulo*> vectorCapitulos;
+
+//Busca y regresa el index de en donde se encuentra la película con ID _
+int BuscarPorID(vector <Video*> * v,const string& id){
+    for (int i = 0; i < v->size(); i++)
+    {
+        if (v->at(i)->getId() == id )
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void subMenuCalificarVideo()
+{
+    string videoId;
+    cout << endl << lineStr << endl;
+    cout << "Enter video ID: ";
+
+    cin >> videoId;
+
+    int idxPelicula = BuscarPorID(reinterpret_cast<vector<struct Video *> *>(&vectorPeliculas), videoId);
+    if(idxPelicula != -1) //CHECK IF ID IS IN MOVIES
+    {
+        //cout << "INDICE EN PELICULAS: " << idxPelicula << endl;;
+
+        int cal; //Calificacion
+
+        cout << "ENTER SCORE FOR: " << vectorPeliculas.at(idxPelicula)->getNombre() << "    (Low 1 - 5 High)\n: ";
+        //Validadte Calification
+        while (1) {
+            if (cin >> cal && (cal >= 1 && cal <= 5)) {
+                vectorPeliculas.at(idxPelicula)->addCalificacion(cal);
+                break;
+            }
+            else
+            {
+                cout << "INVALID SCORE, TRY AGAIN (only use 1 to 5)...\n";
+            }
+        }
+
+    }
+    else
+    {
+        //CHECK ID IS IN CAPITULOS
+        int idxCapitulos = BuscarPorID(reinterpret_cast<vector<struct Video *> *>(&vectorCapitulos), videoId);
+        if(idxCapitulos != -1)
+        {
+            //cout << "INDICE EN CAPITULOS: " << idxCapitulos << endl;
+
+        }
+        //ID DOESNT EXIST IN CATALOGUE
+        else
+        {
+            cout << "ERROR: ID NOT FOUND IN CATALOGUE..." << endl;
+        }
+
+    }
+
+    cout << lineStr << endl;
+
+}
 
 void MostrarCatalogoConCalif()
 {
@@ -50,18 +114,6 @@ void CalificarVideo(const string& id)
 
 }
 
-//Busca y regresa el index de en donde se encuentra la película con ID _
-int BuscarPorID(vector <Video*> * v,const string& id){
-    for (int i = 0; i < v->size(); i++)
-    {
-        if (v->at(i)->getId() == id )
-        {
-            return i;
-        }
-    }
-    return -1;
-}
-
 
 void clearConsole() {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -74,7 +126,7 @@ void clearConsole() {
     SetConsoleCursorPosition(hConsole, topLeft);
 }
 
-void menu()
+[[noreturn]] void MainMenu()
 {
     //clearConsole();
     //MostrarCatalogoConCalif();
@@ -82,22 +134,68 @@ void menu()
 
     clearConsole();
     string mainMenutxt =
-(R"delimiter(            --------MENU--------
-* 1. Mostrar todo el catalogo con calificaciones.
-* 2. Calificar un video
-* 3. Mostrar peliculas o capitulos con una calificacion minima determinada
-* 4. Mostrar peliculas o capitulos de un cierto genero.
-* 9/0. Salir
+(R"delimiter(
+                                    --------MENU--------
+------------------------------------------------------------------------------------------------
 
-Ingrese una opcion: )delimiter");
+        * 1. Mostrar todo el catalogo con calificaciones.
+        * 2. Calificar un video
+        * 3. Mostrar peliculas o capitulos con una calificacion minima determinada
+        * 4. Mostrar peliculas o capitulos de un cierto genero.
+        * 9/0. Salir
+
+------------------------------------------------------------------------------------------------
+
+-Ingrese una opcion: )delimiter");
 
     int opcionMainMenu;
-    while(true)
-    {
-        cout << mainMenutxt;
-        cin >> opcionMainMenu;
 
+    while (true) {
+        cout << mainMenutxt;
+
+        //Validate input is int and (1->4 or 0/9)
+        if (cin >> opcionMainMenu && ((opcionMainMenu >=1 && opcionMainMenu <=4) || opcionMainMenu==0) || opcionMainMenu==9) {
+
+            switch (opcionMainMenu) {
+                case 1:
+                    MostrarCatalogoConCalif();
+                    system("pause");
+                    break;
+                case 2:
+                    subMenuCalificarVideo();
+                    system("pause");
+                    break;
+                case 3:
+                    system("pause");
+                    break;
+                case 4:
+                    system("pause");
+                    break;
+                case 0:
+                    abort();
+                    break;
+                case 9:
+                    abort();
+                    break;
+            }
+
+
+            // Reset the error state and ignore any remaining invalid input
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        } else {
+            // Input is not a valid number
+
+
+            // Reset the error state and ignore the invalid input
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Ingresa una opción valida\n" << endl;
+        }
     }
+
+
+
 }
 
 
@@ -210,17 +308,15 @@ bool OpenTextFile(const string& CurrentPath, const string& filename) {
 
 int main() {
 
-
-    //Try to open the file with the current path
     cout << "Looking for { videos.txt } file in current dir: \n";
 
-    //
+    //Try to open the file with the current path
     if(OpenTextFile(GetCurrentPath(), "videos.txt")){
         cout << "Data loaded successsfully\n" ;
-        menu();
+        MainMenu();
     }
 
-    //Pedimos la ruta
+    //If can´t open file on current path, ask for path and filename
     else
     {
 
@@ -265,7 +361,7 @@ int main() {
 
         }
 
-        menu();
+        MainMenu();
 
 
     }
