@@ -141,7 +141,7 @@ void SubMenuCalificarVideo()
             }
 
         }
-        //ID DOESNT EXIST IN CATALOGUE
+            //ID DOESNT EXIST IN CATALOGUE
         else
         {
             cout << "ERROR: ID NOT FOUND IN CATALOGUE..." << endl;
@@ -152,7 +152,6 @@ void SubMenuCalificarVideo()
     cout << lineStr << endl;
 
 }
-
 void MostrarPorFiltroCalificacion(int tipo)
 {
     cout << "Ingresa la calificacion" << endl;
@@ -210,28 +209,75 @@ void MostrarPorFiltroCalificacion(int tipo)
     } cout << "[FIN DE LA BUSQUEDA...]"<<endl;
 }
 
-
-void MostrarPorFiltroGenero(int tipo)
+void SubMenuFiltrarCalifcacion()
 {
-    cout << "Ingresa el genero (accion | misterio | drama): " << endl;
-    string genero;
-    getline(cin, genero);
 
-    std::transform(genero.begin(), genero.end(), genero.begin(), [](unsigned char c) {
-        return std::tolower(c);
-    });
-    while(true)
-    {
-        if (genero =="drama" || genero =="accion" || genero =="misterio")
+    string tipoDeVideo = R"delimiter(
+        * 1. Mostrar Peliculas
+        * 2. Mostrar Capitulos
+        * 3. Mostrar peliculas y capitulos
+)delimiter";
+
+    cout << tipoDeVideo<<endl;
+    cout << ": " << endl;
+
+    int tipo;
+    while(true){
+
+        if(cin >> tipo && (tipo >= 1 && tipo <= 3))
         {
+            //MOSTRAS POR CALIFICACION
+            cout << "Mostrando por calificacion"<<endl;
+            MostrarPorFiltroCalificacion(tipo);
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             break;
         } else
         {
-            cout << "Por favor ingresa una genero valido: " << endl;
+            cout << "Ingresa una opcion valida\n: ";
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+    }
+
+}
+void MostrarCatalogoConCalif()
+{
+    for(auto i : vectorPeliculas)
+    {
+        cout << *i;
+    }
+
+    for(auto i : vectorCapitulos)
+    {
+        cout << *i;
+    }
+
+
+}
+
+void MostrarPorFiltroGenero(int tipo)
+{
+    string genero;
+    cout << "Ingresa el genero (accion | misterio | drama): " << endl;
+
+
+    while(true)
+    {
+        getline(cin, genero);
+
+        std::transform(genero.begin(), genero.end(), genero.begin(), [](unsigned char c) {
+            return std::tolower(c);
+        });
+
+        if (genero =="drama" || genero =="accion" || genero =="misterio")
+        {
+
+            break;
+        } else
+        {
+            cout << "Por favor ingresa una genero valido: " << endl;
+
         }
     }
 
@@ -273,40 +319,6 @@ void MostrarPorFiltroGenero(int tipo)
     }     cout << "[FIN DE LA BUSQUEDA...]"<<endl;
 
 }
-
-void SubMenuFiltrarCalifcacion()
-{
-
-    string tipoDeVideo = R"delimiter(
-        * 1. Mostrar Peliculas
-        * 2. Mostrar Capitulos
-        * 3. Mostrar peliculas y capitulos
-)delimiter";
-
-    cout << tipoDeVideo<<endl;
-    cout << ": " << endl;
-
-    int tipo;
-    while(true){
-
-        if(cin >> tipo && (tipo >= 1 && tipo <= 3))
-        {
-            //MOSTRAS POR CALIFICACION
-            cout << "Mostrando por calificacion"<<endl;
-            MostrarPorFiltroCalificacion(tipo);
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            break;
-        } else
-        {
-            cout << "Ingresa una opcion valida\n: ";
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        }
-    }
-
-}
-
 void SubMenuFiltrarPorGenero(){
 
     string tipoDeVideo = R"delimiter(
@@ -324,7 +336,6 @@ void SubMenuFiltrarPorGenero(){
         if(cin >> tipo && (tipo >= 1 && tipo <= 3))
         {
             //MOSTRAS POR CALIFICACION
-            cout << "Mostrando por Genero"<<endl;
             MostrarPorFiltroGenero(tipo);
 
             cin.clear();
@@ -340,92 +351,7 @@ void SubMenuFiltrarPorGenero(){
 
 }
 
-void MostrarCatalogoConCalif()
-{
-    for(auto i : vectorPeliculas)
-    {
-        cout << *i;
-    }
-
-    for(auto i : vectorCapitulos)
-    {
-        cout << *i;
-    }
-
-
-}
-
-[[noreturn]] void MainMenu()
-{
-    //clearConsole();
-    //MostrarCatalogoConCalif();
-    //cout << BuscarPorID(reinterpret_cast<vector<struct Video *> *>(&vectorCapitulos), "20160150-S02E09");
-
-    string mainMenutxt =
-(R"delimiter(
-                                    --------MENU--------
-------------------------------------------------------------------------------------------------
-
-        * 1. Mostrar todo el catalogo con calificaciones.
-        * 2. Calificar un video
-        * 3. Mostrar peliculas o capitulos con una calificacion minima determinada
-        * 4. Mostrar peliculas o capitulos de un cierto genero.
-        * 9/0. Salir
-
-------------------------------------------------------------------------------------------------
-
--Ingrese una opcion: )delimiter");
-
-    int opcionMainMenu;
-
-    while (true) {
-        cout << mainMenutxt;
-
-        //Validate input is int and (1->4 or 0/9)
-        if (cin >> opcionMainMenu && ((opcionMainMenu >=1 && opcionMainMenu <=4) || opcionMainMenu==0) || opcionMainMenu==9) {
-
-            switch (opcionMainMenu) {
-                case 1:
-                    MostrarCatalogoConCalif();
-                    system("pause");
-                    break;
-                case 2:
-                    SubMenuCalificarVideo();
-                    system("pause");
-                    break;
-                case 3:
-                    SubMenuFiltrarCalifcacion();
-                    system("pause");
-                    break;
-                case 4:
-                    SubMenuFiltrarPorGenero();
-                    system("pause");
-                    break;
-                case 0:
-                    abort();
-                case 9:
-                    abort();
-            }
-
-
-            // Reset the error state and ignore any remaining invalid input
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        } else {
-            // Input is not a valid number
-
-
-            // Reset the error state and ignore the invalid input
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Ingresa una opcion valida\n" << endl;
-        }
-    }
-
-
-
-}
-
+////FUNCTIONS FOR FILE HANDELING////
 string formatPath(string path)
 {
     ///FORMAT WITH DOUBLE backslash
@@ -441,7 +367,6 @@ string formatPath(string path)
     //cout <<"Formated PATH: " << dir_path << endl;
     return dir_path;
 }
-
 string GetCurrentPath()
 {
     try
@@ -460,7 +385,6 @@ string GetCurrentPath()
     } catch (...){} throw runtime_error("Can't get Current Directory");
 
 }
-
 void LoadFileIntoVectors(ifstream * file) {
     string dataLine;
 
@@ -524,7 +448,6 @@ void LoadFileIntoVectors(ifstream * file) {
 
 
 }
-
 bool OpenTextFile(const string& CurrentPath, const string& filename) {
     ifstream file(CurrentPath+"\\"+filename); // Open the file
     string firstLine;
@@ -543,7 +466,85 @@ bool OpenTextFile(const string& CurrentPath, const string& filename) {
 
 
 }
+//////////////end functions for file  handeling///////////////////
 
+//MAIN MENU
+[[noreturn]] void MainMenu()
+{
+    //clearConsole();
+    //MostrarCatalogoConCalif();
+    //cout << BuscarPorID(reinterpret_cast<vector<struct Video *> *>(&vectorCapitulos), "20160150-S02E09");
+
+    string mainMenutxt =
+            (R"delimiter(
+                                    --------MENU--------
+------------------------------------------------------------------------------------------------
+
+        * 1. Mostrar todo el catalogo con calificaciones.
+        * 2. Calificar un video
+        * 3. Mostrar peliculas o capitulos con una calificacion minima determinada
+        * 4. Mostrar peliculas o capitulos de un cierto genero.
+        * 9/0. Salir
+
+------------------------------------------------------------------------------------------------
+
+-Ingrese una opcion: )delimiter");
+
+    int opcionMainMenu;
+
+    while (true) {
+        cout << mainMenutxt;
+
+        //Validate input is int and (1->4 or 0/9)
+        if (cin >> opcionMainMenu && ((opcionMainMenu >=1 && opcionMainMenu <=4) || opcionMainMenu==0) || opcionMainMenu==9) {
+
+            switch (opcionMainMenu) {
+                default:
+                    break;
+                case 1:
+                    MostrarCatalogoConCalif();
+                    system("pause");
+                    break;
+                case 2:
+                    SubMenuCalificarVideo();
+                    system("pause");
+                    break;
+                case 3:
+                    SubMenuFiltrarCalifcacion();
+                    system("pause");
+                    break;
+                case 4:
+                    SubMenuFiltrarPorGenero();
+                    system("pause");
+                    break;
+                case 0:
+                    abort();
+                case 9:
+                    abort();
+            }
+
+
+            // Reset the error state and ignore any remaining invalid input
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        } else {
+            // Input is not a valid number
+
+
+            // Reset the error state and ignore the invalid input
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Ingresa una opcion valida\n" << endl;
+        }
+    }
+
+
+
+}
+
+//START MENU FOR FILE HANDELING
+
+/////////////////PROGRAM STARTS HERE!/////////////////
 int main() {
 
     string welcome = R"delimiter(
