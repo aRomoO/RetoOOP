@@ -45,7 +45,7 @@ void MostrarCatalogoConCalif()
 
 }
 
-void CalificarVideo(string id)
+void CalificarVideo(const string& id)
 {
 
 }
@@ -76,21 +76,30 @@ void clearConsole() {
 
 void menu()
 {
+    //clearConsole();
+    //MostrarCatalogoConCalif();
+    //cout << BuscarPorID(reinterpret_cast<vector<struct Video *> *>(&vectorCapitulos), "20160150-S02E09");
+
     clearConsole();
-    MostrarCatalogoConCalif();
-    cout << BuscarPorID(reinterpret_cast<vector<struct Video *> *>(&vectorCapitulos), "20160150-S02E09");
+    string mainMenutxt =
+(R"delimiter(            --------MENU--------
+* 1. Mostrar todo el catalogo con calificaciones.
+* 2. Calificar un video
+* 3. Mostrar peliculas o capitulos con una calificacion minima determinada
+* 4. Mostrar peliculas o capitulos de un cierto genero.
+* 9/0. Salir
 
+Ingrese una opcion: )delimiter");
 
-    /*
-    * 1. Mostrar todo el catalogo con calificaciones.
-    * 2. Calificar un video
-    * 3. Mostrar peliculas o capitulos con una calificacion minima determinada
-    * 4. Mostrar peliculas o capitulos de un cierto genero.
-    * 9. Salir
-     *
-     * */
-    cout << "menu";
+    int opcionMainMenu;
+    while(true)
+    {
+        cout << mainMenutxt;
+        cin >> opcionMainMenu;
+
+    }
 }
+
 
 string GetCurrentPath()
 {
@@ -155,8 +164,6 @@ void LoadFileIntoVectors(ifstream * file) {
                 numeroEpisodio = stoi(numero_str);
 
                 vectorCapitulos.push_back(new Capitulo(id, titulo, duracion, genero, nombreSerie, numeroEpisodio));
-                //cout << *vectorCapitulos.at(0);
-
 
             }
             else
@@ -193,7 +200,7 @@ bool OpenTextFile(const string& CurrentPath, const string& filename) {
         }
 
             cout << "File Opened Successfully...\n";
-            cout << "loading files..."<<endl;
+            cout << "loading data..."<<endl;
             LoadFileIntoVectors(&file);
             file.close(); // Close the file
             return true;
@@ -205,14 +212,11 @@ int main() {
 
 
     //Try to open the file with the current path
-    cout << "Looking for { videos.txt } file in current dir: ";
+    cout << "Looking for { videos.txt } file in current dir: \n";
 
     //
     if(OpenTextFile(GetCurrentPath(), "videos.txt")){
-        for(auto i : vectorPeliculas)
-        {
-            cout << *i;
-        }
+        cout << "Data loaded successsfully\n" ;
         menu();
     }
 
@@ -226,7 +230,7 @@ int main() {
 
         while(1)
         {
-            clearConsole();
+            //clearConsole();
             cout << "ENTER FOLDER DIRECTORY: (without file and extention)\n : ";
             cin >> dir; cout << endl;
             cout << "ENTER FILE NAME AND EXTENTION: (ej. videos.txt)\n : ";
@@ -245,7 +249,7 @@ int main() {
 
                     else
                     {
-                        clearConsole();
+                        //clearConsole();
                         break;
                     }
 
