@@ -425,16 +425,10 @@ string formatPath(string path)
     ///FORMAT WITH DOUBLE backslash
     string dir_path;
     for (char c : path) {
-        if (c == '\\' || c == ' ') {
+        if (c == '\\') {
             dir_path += "\\\\";
         } else {
             dir_path += c;
-        }
-    }
-
-    for (size_t i = 0; i < path.length(); i++) {
-        if (path[i] == ' ') {
-            dir_path.insert(i, " ");
         }
     }
 
@@ -448,11 +442,12 @@ string GetCurrentPath()
     {
         string file {__FILE__};
         string path {file.substr(0, file.rfind('/\\'))};
+        cout <<"NOT FORMATED PATH: " << path << std::endl;
         ///FORMAT WITH DOUBLE backslash
 
         string dir_path = formatPath(path);
 
-        //cout <<"CURRENT PATH: " << dir_path << std::endl;
+
         return dir_path;
 
 
@@ -558,7 +553,7 @@ int main() {
     cout << welcome << endl;
     system("pause");
     //Try to open the file with the current path
-    if(OpenTextFile(GetCurrentPath(), "video5s.txt")){
+    if(OpenTextFile(GetCurrentPath(), "video0s.txt")){
         cout << "Data loaded successsfully\n" ;
 
 
@@ -577,10 +572,11 @@ int main() {
         {
             //clearConsole();
             cout << "ENTER FOLDER DIRECTORY: (without file and extention)\n : ";
-            cin >> dir; cout << endl;
+            std::getline(std::cin, dir);
+            cout << endl;
             cout << "ENTER FILE NAME AND EXTENTION: (ej. videos.txt)\n : ";
-            cin >> filename;
-            if(!OpenTextFile(formatPath(dir),filename))
+            std::getline(std::cin, filename);
+            if(!OpenTextFile(dir,filename))
             {
                 while (true)
                 {
