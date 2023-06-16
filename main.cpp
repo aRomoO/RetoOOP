@@ -19,6 +19,8 @@
 //#include <typeinfo>
 #include <stdexcept>
 #include <limits>
+#include <algorithm>
+#include <cctype>
 
 //Header files
 #include "Pelicula.h"
@@ -213,7 +215,11 @@ void MostrarPorFiltroGenero(int tipo)
 {
     cout << "Ingresa el genero (accion | misterio | drama): " << endl;
     string genero;
-    cin >> genero;
+    getline(cin, genero);
+
+    std::transform(genero.begin(), genero.end(), genero.begin(), [](unsigned char c) {
+        return std::tolower(c);
+    });
     while(true)
     {
         if (genero =="drama" || genero =="accion" || genero =="misterio")
@@ -412,7 +418,7 @@ void MostrarCatalogoConCalif()
             // Reset the error state and ignore the invalid input
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Ingresa una opción valida\n" << endl;
+            cout << "Ingresa una opcion valida\n" << endl;
         }
     }
 
@@ -432,7 +438,7 @@ string formatPath(string path)
         }
     }
 
-    cout <<"Formated PATH: " << dir_path << endl;
+    //cout <<"Formated PATH: " << dir_path << endl;
     return dir_path;
 }
 
@@ -442,7 +448,7 @@ string GetCurrentPath()
     {
         string file {__FILE__};
         string path {file.substr(0, file.rfind('/\\'))};
-        cout <<"NOT FORMATED PATH: " << path << std::endl;
+        cout <<"CURRENT PATH:" << path << std::endl;
         ///FORMAT WITH DOUBLE backslash
 
         string dir_path = formatPath(path);
@@ -543,8 +549,8 @@ int main() {
     string welcome = R"delimiter(
 ----------------------BIENVENIDO AL SIMULADOR DE SISTEMA DE STREAMING----------------------
 
-    *SE INTENTARA BUSCAR EL ARCHIVO {"videos.txt"} EN LA CARPETA ACTUAL
-    *EN CASO DE NO ENCONTRARLO, POR FAVOR INGRESA A RUTA Y EL NOMBRE MANUALMENTE
+    * SE INTENTARA BUSCAR EL ARCHIVO {"videos.txt"} EN LA CARPETA ACTUAL
+    * EN CASO DE NO ENCONTRARLO, POR FAVOR INGRESA A RUTA Y EL NOMBRE MANUALMENTE
 
 -------------------------------------------------------------------------------------------
 
@@ -553,7 +559,7 @@ int main() {
     cout << welcome << endl;
     system("pause");
     //Try to open the file with the current path
-    if(OpenTextFile(GetCurrentPath(), "video0s.txt")){
+    if(OpenTextFile(GetCurrentPath(), "videos.txt")){
         cout << "Data loaded successsfully\n" ;
 
 
@@ -581,7 +587,7 @@ int main() {
                 while (true)
                 {
                     cin.clear();  // Clear the error flag
-                    cout << "CAN'T OPEN DOCUMENT, TRY AGAIN?\n0 : exit\nanything else : continue" <<endl;
+                    cout << "CAN'T OPEN DOCUMENT, TRY AGAIN?\n0 : exit\1 : continue" <<endl;
                     cin >> salir;
                     if (salir==0)
                     {
