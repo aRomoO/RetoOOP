@@ -91,7 +91,7 @@ std::string Video::mostrarFiltradoCalificacion() {
             "[Calificacion]: " + PromedioCalificiones()+ "\n";
 }
 
-std::string Video::mostrarFiltroGenero() {
+std::string Video::mostrarFiltradoGenero() {
     return  "\n---------------\n[ID]:"        +id+"\n"+
             "[Nombre]: "       + nombre+"\n"+
             "[Genero]: "       + genero+"\n"+

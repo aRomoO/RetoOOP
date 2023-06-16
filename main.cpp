@@ -172,18 +172,19 @@ void MostrarPorFiltroCalificacion(int tipo)
 
 void MostrarPorFiltroGenero(int tipo)
 {
-    cout << "Ingresa el genero: " << endl;
-    double genero;
+    cout << "Ingresa el genero (accion | misterio | drama): " << endl;
+    string genero;
+    cin >> genero;
     while(true)
     {
-        if (cin >> genero && (genero >= 1 && genero <= 5))
+        if (genero =="drama" || genero =="accion" || genero =="misterio")
         {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             break;
         } else
         {
-            cout << "Por favor ingresa una calificacion valida: " << endl;
+            cout << "Por favor ingresa una genero valido: " << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
         }
@@ -193,34 +194,34 @@ void MostrarPorFiltroGenero(int tipo)
         case 1:
             for (auto i : vectorPeliculas)
             {
-                if(i->PromedioCalificiones() != "SC" && (stod(i->PromedioCalificiones()) >= genero))
+                if(i->getGenero() == genero)
                 {
-                    cout << i->mostrarFiltradoCalificacion()<<endl;
+                    cout << i->mostrarFiltradoGenero()<<endl;
                 }
             }
             break;
         case 2:
             for (auto i : vectorCapitulos)
             {
-                if(i->PromedioCalificiones() != "SC" && (stod(i->PromedioCalificiones()) >= genero))
+                if(i->getGenero() == genero)
                 {
-                    cout << i->mostrarFiltradoCalificacion() << endl;
+                    cout << i->mostrarFiltradoGenero()<<endl;
                 }
             }
             break;
         case 3:
             for (auto i : vectorPeliculas)
             {
-                if(i->PromedioCalificiones() != "SC" && (stod(i->PromedioCalificiones()) >= genero))
+                if(i->getGenero() == genero)
                 {
-                    cout << i->mostrarFiltradoCalificacion()<<endl;
+                    cout << i->mostrarFiltradoGenero()<<endl;
                 }
             }
             for (auto i : vectorCapitulos)
             {
-                if(i->PromedioCalificiones() != "SC" && (stod(i->PromedioCalificiones()) >= genero))
+                if(i->getGenero() == genero)
                 {
-                    cout << i->mostrarFiltradoCalificacion() << endl;
+                    cout << i->mostrarFiltradoGenero()<<endl;
                 }
             }
             break;

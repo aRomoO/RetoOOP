@@ -39,7 +39,7 @@ public:
     //METHODS
     std::string PromedioCalificiones();
     std::string mostrarFiltradoCalificacion();
-    std::string mostrarFiltroGenero();
+    std::string mostrarFiltradoGenero();
 
     //VIRTUAL METHODS
 
