@@ -24,14 +24,12 @@ public:
 
     //GETTERS & SETTERS
     std::string getId() const;
-    void setId(std::string id);
+
 
     const std::string &getNombre() const;
-    void setNombre(const std::string &nombre);
-    int getDuracion() const;
-    void setDuracion(int duracion);
+
     const std::string &getGenero() const;
-    void setGenero(const std::string &genero);
+
 
 
     bool addCalificacion(int cal);

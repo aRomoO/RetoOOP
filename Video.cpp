@@ -19,27 +19,15 @@ genero(std::move(genero)){}
 std::string Video::getId() const {
     return id;
 }
-void Video::setId(std::string id) {
-    Video::id = std::move(id);
-}
+
 const std::string &Video::getNombre() const {
     return nombre;
 }
-void Video::setNombre(const std::string &nombre) {
-    Video::nombre = nombre;
-}
-int Video::getDuracion() const {
-    return duracion;
-}
-void Video::setDuracion(int duracion) {
-    Video::duracion = duracion;
-}
+
 const std::string &Video::getGenero() const {
     return genero;
 }
-void Video::setGenero(const std::string &genero) {
-    Video::genero = genero;
-}
+
 
 
 //METHODS

@@ -543,7 +543,7 @@ int main() {
     cout << welcome << endl;
     system("pause");
     //Try to open the file with the current path
-    if(OpenTextFile(GetCurrentPath(), "video0s.txt")){
+    if(OpenTextFile(GetCurrentPath(), "video5s.txt")){
         cout << "Data loaded successsfully\n" ;
 
 
@@ -589,7 +589,6 @@ int main() {
             else
             {
                 break;
-
 
             }
 
