@@ -1,22 +1,29 @@
 /*
- *          ALFREDO ROMO OSORNO
- *          a01643235@tec.mx
- *          SITUACIÓN PROBLEMA OOP 2DO SEMESTRE:
- *          SIMULACION SISTEMA DE STREAMING
+                ███████╗██████╗ ███████╗██████╗ ██╗███████╗██╗     ██╗██╗  ██╗
+                ██╔════╝██╔══██╗██╔════╝██╔══██╗██║██╔════╝██║     ██║╚██╗██╔╝
+                █████╗  ██████╔╝█████╗  ██║  ██║██║█████╗  ██║     ██║ ╚███╔╝
+                ██╔══╝  ██╔══██╗██╔══╝  ██║  ██║██║██╔══╝  ██║     ██║ ██╔██╗
+                ██║     ██║  ██║███████╗██████╔╝██║██║     ███████╗██║██╔╝ ██
+
+
+                     *          ALFREDO ROMO OSORNO
+                     *          a01643235@tec.mx
+                     *          SITUACIÓN PROBLEMA OOP 2DO SEMESTRE:
+                     *          SIMULACION SISTEMA DE STREAMING
  *
- * */
+ *
+ *
+ *
+ */
 
 //C++ Libraries
 #include <iostream>
-//#include "conio.h"
 #include "string"
 #include "fstream"
 #include "exception"
 #include "vector"
 #include <windows.h>
-//#include <filesystem>
 #include <sstream>
-//#include <typeinfo>
 #include <stdexcept>
 #include <limits>
 #include <algorithm>
@@ -542,12 +549,18 @@ bool OpenTextFile(const string& CurrentPath, const string& filename) {
 
 }
 
+/////////////////PROGRAM STARTS HERE!/////////////////
 //START MENU FOR FILE HANDELING
 
-/////////////////PROGRAM STARTS HERE!/////////////////
 int main() {
 
     string welcome = R"delimiter(
+
+https://github.com/aRomoO/RetoOOP
+Alfredo Romo Osorno
+A01643235@tec.mx
+2023
+
 ----------------------BIENVENIDO AL SIMULADOR DE SISTEMA DE STREAMING----------------------
 
     * SE INTENTARA BUSCAR EL ARCHIVO {"videos.txt"} EN LA CARPETA ACTUAL
@@ -557,7 +570,11 @@ int main() {
 
 )delimiter";
 
-    cout << welcome << endl;
+
+
+
+    printf_s("%s\n",&welcome);
+    //cout << welcome << endl;
     system("pause");
     //Try to open the file with the current path
     if(OpenTextFile(GetCurrentPath(), "videos.txt")){
