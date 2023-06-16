@@ -21,7 +21,6 @@
 #include <limits>
 
 //Header files
-#include "Video.h"
 #include "Pelicula.h"
 #include "Capitulo.h"
 
@@ -44,7 +43,8 @@ int BuscarPorID(vector <Video*> * v,const string& id){
     return -1;
 }
 
-void subMenuCalificarVideo()
+//SUBMENUS
+void SubMenuCalificarVideo()
 {
     string videoId;
     cout << endl << lineStr << endl;
@@ -61,14 +61,16 @@ void subMenuCalificarVideo()
 
         cout << "ENTER SCORE FOR: " << vectorPeliculas.at(idxPelicula)->getNombre() << "    (Low 1 - 5 High)\n: ";
         //Validadte Calification
-        while (1) {
+        while (true) {
             if (cin >> cal && (cal >= 1 && cal <= 5)) {
                 vectorPeliculas.at(idxPelicula)->addCalificacion(cal);
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 break;
             }
             else
             {
-                cout << "INVALID SCORE, TRY AGAIN (only use 1 to 5)...\n";
+                cout << "INVALID SCORE, TRY AGAIN (only use 1 to 5)...\nScore : ";
             }
         }
 
@@ -79,7 +81,24 @@ void subMenuCalificarVideo()
         int idxCapitulos = BuscarPorID(reinterpret_cast<vector<struct Video *> *>(&vectorCapitulos), videoId);
         if(idxCapitulos != -1)
         {
-            //cout << "INDICE EN CAPITULOS: " << idxCapitulos << endl;
+            int cal; //Calificacion
+
+            cout << "ENTER SCORE FOR: " << vectorCapitulos.at(idxCapitulos)->getNombre() << "    (Low 1 - 5 High)\n: ";
+            //Validadte Calification
+            while (true) {
+                if (cin >> cal && (cal >= 1 && cal <= 5)) {
+                    vectorCapitulos.at(idxCapitulos)->addCalificacion(cal);
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    break;
+                }
+                else
+                {
+                    cout << "INVALID SCORE, TRY AGAIN (only use 1 to 5)...\nScore : ";
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                }
+            }
 
         }
         //ID DOESNT EXIST IN CATALOGUE
@@ -91,6 +110,187 @@ void subMenuCalificarVideo()
     }
 
     cout << lineStr << endl;
+
+}
+
+void MostrarPorFiltroCalificacion(int tipo)
+{
+    cout << "Ingresa la calificacion" << endl;
+    double calif;
+    while(true)
+    {
+        if (cin >> calif && (calif >= 1 && calif <=5))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            break;
+        } else
+        {
+            cout << "Por favor ingresa una calificacion valida: " << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+    }
+
+    switch (tipo) {
+        case 1:
+            for (auto i : vectorPeliculas)
+            {
+                if(i->PromedioCalificiones() != "SC" && (stod(i->PromedioCalificiones()) >= calif))
+                {
+                    cout << i->mostrarFiltradoCalificacion()<<endl;
+                }
+            }
+            break;
+        case 2:
+            for (auto i : vectorCapitulos)
+            {
+                if(i->PromedioCalificiones() != "SC" && (stod(i->PromedioCalificiones()) >= calif))
+                {
+                    cout << i->mostrarFiltradoCalificacion() << endl;
+                }
+            }
+            break;
+        case 3:
+            for (auto i : vectorPeliculas)
+            {
+                if(i->PromedioCalificiones() != "SC" && (stod(i->PromedioCalificiones()) >= calif))
+                {
+                    cout << i->mostrarFiltradoCalificacion()<<endl;
+                }
+            }
+            for (auto i : vectorCapitulos)
+            {
+                if(i->PromedioCalificiones() != "SC" && (stod(i->PromedioCalificiones()) >= calif))
+                {
+                    cout << i->mostrarFiltradoCalificacion() << endl;
+                }
+            }
+            break;
+    }
+}
+
+void MostrarPorFiltroGenero(int tipo)
+{
+    cout << "Ingresa el genero: " << endl;
+    double genero;
+    while(true)
+    {
+        if (cin >> genero && (genero >= 1 && genero <= 5))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            break;
+        } else
+        {
+            cout << "Por favor ingresa una calificacion valida: " << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+    }
+
+    switch (tipo) {
+        case 1:
+            for (auto i : vectorPeliculas)
+            {
+                if(i->PromedioCalificiones() != "SC" && (stod(i->PromedioCalificiones()) >= genero))
+                {
+                    cout << i->mostrarFiltradoCalificacion()<<endl;
+                }
+            }
+            break;
+        case 2:
+            for (auto i : vectorCapitulos)
+            {
+                if(i->PromedioCalificiones() != "SC" && (stod(i->PromedioCalificiones()) >= genero))
+                {
+                    cout << i->mostrarFiltradoCalificacion() << endl;
+                }
+            }
+            break;
+        case 3:
+            for (auto i : vectorPeliculas)
+            {
+                if(i->PromedioCalificiones() != "SC" && (stod(i->PromedioCalificiones()) >= genero))
+                {
+                    cout << i->mostrarFiltradoCalificacion()<<endl;
+                }
+            }
+            for (auto i : vectorCapitulos)
+            {
+                if(i->PromedioCalificiones() != "SC" && (stod(i->PromedioCalificiones()) >= genero))
+                {
+                    cout << i->mostrarFiltradoCalificacion() << endl;
+                }
+            }
+            break;
+    }
+}
+
+
+void SubMenuFiltrarCalifcacion()
+{
+
+    string tipoDeVideo = R"delimiter(
+        * 1. Mostrar Peliculas
+        * 2. Mostrar Capitulos
+        * 3. Mostrar peliculas y capitulos
+)delimiter";
+
+    cout << tipoDeVideo<<endl;
+    cout << ": " << endl;
+
+    int tipo;
+    while(true){
+
+        if(cin >> tipo && (tipo >= 1 && tipo <= 3))
+        {
+            //MOSTRAS POR CALIFICACION
+            cout << "Mostrando por calificacion"<<endl;
+            MostrarPorFiltroCalificacion(tipo);
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            break;
+        } else
+        {
+            cout << "Ingresa una opcion valida\n: ";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+    }
+
+}
+
+void SubMenuFiltrarPorGenero(){
+
+    string tipoDeVideo = R"delimiter(
+        * 1. Mostrar Peliculas
+        * 2. Mostrar Capitulos
+        * 3. Mostrar peliculas y capitulos
+)delimiter";
+
+    cout << tipoDeVideo<<endl;
+    cout << ": " << endl;
+
+    int tipo;
+    while(true){
+
+        if(cin >> tipo && (tipo >= 1 && tipo <= 3))
+        {
+            //MOSTRAS POR CALIFICACION
+            cout << "Mostrando por Genero"<<endl;
+            MostrarPorFiltroGenero(tipo);
+
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            break;
+        } else
+        {
+            cout << "Ingresa una opcion valida\n: ";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+    }
 
 }
 
@@ -162,13 +362,15 @@ void clearConsole() {
                     system("pause");
                     break;
                 case 2:
-                    subMenuCalificarVideo();
+                    SubMenuCalificarVideo();
                     system("pause");
                     break;
                 case 3:
+                    SubMenuFiltrarCalifcacion();
                     system("pause");
                     break;
                 case 4:
+                    SubMenuFiltrarPorGenero();
                     system("pause");
                     break;
                 case 0:

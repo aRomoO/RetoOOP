@@ -85,4 +85,17 @@ bool Video::addCalificacion(int cal) {
 
 }
 
+std::string Video::mostrarFiltradoCalificacion() {
+    return  "\n---------------\n[ID]:"        +id+"\n"+
+            "[Nombre]: "       + nombre+"\n"+
+            "[Calificacion]: " + PromedioCalificiones()+ "\n";
+}
+
+std::string Video::mostrarFiltroGenero() {
+    return  "\n---------------\n[ID]:"        +id+"\n"+
+            "[Nombre]: "       + nombre+"\n"+
+            "[Genero]: "       + genero+"\n"+
+            "[Calificacion]: " + PromedioCalificiones()+ "\n";
+}
+
 

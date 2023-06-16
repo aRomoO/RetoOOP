@@ -8,7 +8,7 @@
 #include <ostream>
 #include "Video.h"
 
-class Capitulo : Video{
+class Capitulo : public Video{
 private:
     std::string nombreSerie;
     int numero;

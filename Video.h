@@ -34,12 +34,18 @@ public:
     void setGenero(const std::string &genero);
 
 
-    //METHODS
-    std::string PromedioCalificiones();
     bool addCalificacion(int cal);
 
+    //METHODS
+    std::string PromedioCalificiones();
+    std::string mostrarFiltradoCalificacion();
+    std::string mostrarFiltroGenero();
+
     //VIRTUAL METHODS
+
     virtual std::string toString() = 0;
+
+
 
 };
 
