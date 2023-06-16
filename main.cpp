@@ -8,15 +8,15 @@
 
 //C++ Libraries
 #include <iostream>
-#include "conio.h"
+//#include "conio.h"
 #include "string"
 #include "fstream"
 #include "exception"
 #include "vector"
 #include <windows.h>
-#include <filesystem>
+//#include <filesystem>
 #include <sstream>
-#include <typeinfo>
+//#include <typeinfo>
 #include <stdexcept>
 #include <limits>
 
@@ -30,6 +30,44 @@ using namespace std;
 string lineStr = "------------------------------------------------------------------------------------------------";
 vector<Pelicula*> vectorPeliculas;
 vector<Capitulo*> vectorCapitulos;
+
+
+
+
+void clearConsole() {
+#ifdef _WIN32
+    HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    COORD coord = {0, 0};
+    DWORD count;
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+
+    if (GetConsoleScreenBufferInfo(hStdOut, &csbi)) {
+        FillConsoleOutputCharacter(hStdOut, ' ', csbi.dwSize.X * csbi.dwSize.Y, coord, &count);
+        SetConsoleCursorPosition(hStdOut, coord);
+    }
+#else
+    std::system("clear");
+#endif
+}
+
+void pressEnter() {
+
+    INPUT input;
+    input.type = INPUT_KEYBOARD;
+    input.ki.wVk = VK_RETURN;
+    input.ki.dwFlags = 0;
+    input.ki.time = 0;
+    input.ki.dwExtraInfo = 0;
+
+    INPUT inputRelease = input;
+    inputRelease.ki.dwFlags = KEYEVENTF_KEYUP;
+
+    // Press Enter key
+    SendInput(1, &input, sizeof(INPUT));
+
+    // Release Enter key
+    SendInput(1, &inputRelease, sizeof(INPUT));
+}
 
 //Busca y regresa el index de en donde se encuentra la película con ID _
 int BuscarPorID(vector <Video*> * v,const string& id){
@@ -167,8 +205,9 @@ void MostrarPorFiltroCalificacion(int tipo)
                 }
             }
             break;
-    }
+    } cout << "[FIN DE LA BUSQUEDA...]"<<endl;
 }
+
 
 void MostrarPorFiltroGenero(int tipo)
 {
@@ -225,9 +264,9 @@ void MostrarPorFiltroGenero(int tipo)
                 }
             }
             break;
-    }
-}
+    }     cout << "[FIN DE LA BUSQUEDA...]"<<endl;
 
+}
 
 void SubMenuFiltrarCalifcacion()
 {
@@ -310,30 +349,12 @@ void MostrarCatalogoConCalif()
 
 }
 
-void CalificarVideo(const string& id)
-{
-
-}
-
-
-void clearConsole() {
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    COORD topLeft = {0, 0};
-    CONSOLE_SCREEN_BUFFER_INFO screen;
-    DWORD written;
-
-    GetConsoleScreenBufferInfo(hConsole, &screen);
-    FillConsoleOutputCharacter(hConsole, ' ', screen.dwSize.X * screen.dwSize.Y, topLeft, &written);
-    SetConsoleCursorPosition(hConsole, topLeft);
-}
-
 [[noreturn]] void MainMenu()
 {
     //clearConsole();
     //MostrarCatalogoConCalif();
     //cout << BuscarPorID(reinterpret_cast<vector<struct Video *> *>(&vectorCapitulos), "20160150-S02E09");
 
-    clearConsole();
     string mainMenutxt =
 (R"delimiter(
                                     --------MENU--------
@@ -376,10 +397,8 @@ void clearConsole() {
                     break;
                 case 0:
                     abort();
-                    break;
                 case 9:
                     abort();
-                    break;
             }
 
 
@@ -511,11 +530,23 @@ bool OpenTextFile(const string& CurrentPath, const string& filename) {
 
 int main() {
 
-    cout << "Looking for { videos.txt } file in current dir: \n";
+    string welcome = R"delimiter(
+----------------------BIENVENIDO AL SIMULADOR DE SISTEMA DE STREAMING----------------------
+
+    *SE INTENTARA BUSCAR EL ARCHIVO {"videos.txt"} EN LA CARPETA ACTUAL
+    *EN CASO DE NO ENCONTRARLO, POR FAVOR INGRESA A RUTA Y EL NOMBRE MANUALMENTE
+
+-------------------------------------------------------------------------------------------
+
+)delimiter";
+
+    cout << welcome << endl;
 
     //Try to open the file with the current path
     if(OpenTextFile(GetCurrentPath(), "videos.txt")){
         cout << "Data loaded successsfully\n" ;
+        system("pause");
+
         MainMenu();
     }
 
@@ -527,7 +558,7 @@ int main() {
         string filename;
         int salir = 0;
 
-        while(1)
+        while(true)
         {
             //clearConsole();
             cout << "ENTER FOLDER DIRECTORY: (without file and extention)\n : ";
@@ -536,7 +567,7 @@ int main() {
             cin >> filename;
             if(!OpenTextFile(dir,filename))
             {
-                while (1)
+                while (true)
                 {
                     cin.clear();  // Clear the error flag
                     cout << "CAN'T OPEN DOCUMENT, TRY AGAIN?\n0 : exit\nanything else : continue" <<endl;
@@ -568,14 +599,6 @@ int main() {
 
 
     }
-
-
-
-
-
-
-
-
 
     return 0;
 }
