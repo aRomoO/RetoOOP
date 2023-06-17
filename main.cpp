@@ -59,24 +59,6 @@ void clearConsole() {
 #endif
 }
 
-void pressEnter() {
-
-    INPUT input;
-    input.type = INPUT_KEYBOARD;
-    input.ki.wVk = VK_RETURN;
-    input.ki.dwFlags = 0;
-    input.ki.time = 0;
-    input.ki.dwExtraInfo = 0;
-
-    INPUT inputRelease = input;
-    inputRelease.ki.dwFlags = KEYEVENTF_KEYUP;
-
-    // Press Enter key
-    SendInput(1, &input, sizeof(INPUT));
-
-    // Release Enter key
-    SendInput(1, &inputRelease, sizeof(INPUT));
-}
 
 //Busca y regresa el index de en donde se encuentra la película con ID _
 int BuscarPorID(vector <Video*> * v,const string& id){
